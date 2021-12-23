@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    {{#if productExist }}
+    <div class="cards_productos">
+        {{#each productos}}
+            <div class="card">
+                <img src={{this.foto}} class="card-img-top" alt={{this.nombre}}>
+                <div class="card-body">
+                    <h5 class="card-title">{{this.nombre}}</h5>
+                    <p class="card-text">{{this.descripcion}}</p>
+                    <p class="card-text">Precio : {{this.precio}}</p>
+                    <p class="card-text">Stock : {{this.stock}}</p>
+                    <a href="#" class="btn btn-primary">Comprar</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+        
+    {{else}}
+    <h1>No se encontro datos</h1>
+    {{/if}}
+    {{#if admin }}
+    <h1>Usted es admin - Agregar Producto </h1>
+        <form action="/" method="post">
+            <div class="container mt-5">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" type="text" name="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <input class="form-control" type="text" name="descripcion">
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input class="form-control" type="number" name="stock">
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input class="form-control" type="number" name="precio">
+                </div>
+                <div class="form-group">
+                    <label for="foto">Foto</label>
+                    <input class="form-control" type="text" name="foto">
+                </div>
+                <button type="submit" class="btn btn-primary">Cargar Producto</button>
+            </div>
+        </form>
+    {{/if}}
+</div>
+
+

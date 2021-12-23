@@ -1,0 +1,5 @@
+.cards_productos{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
