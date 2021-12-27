@@ -3,3 +3,7 @@
     flex-flow: row wrap;
     justify-content: space-between;
 }
+.card img{
+    width: 150px;
+    height: auto;
+}

@@ -1,15 +1,25 @@
 <div class="container mt-5">
     {{#if productExist }}
     <div class="cards_productos">
-        {{#each productos}}
+        {{#each productosInicio}}
             <div class="card">
-                <img src={{this.foto}} class="card-img-top" alt={{this.nombre}}>
+                <img src={{this.foto}} class="card-img-top " alt={{this.nombre}} name="foto" >
                 <div class="card-body">
                     <h5 class="card-title">{{this.nombre}}</h5>
-                    <p class="card-text">{{this.descripcion}}</p>
-                    <p class="card-text">Precio : {{this.precio}}</p>
-                    <p class="card-text">Stock : {{this.stock}}</p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <p class="card-text" >{{this.descripcion}}</p>
+                    <p class="card-text" > Precio : {{this.precio}}</p>
+                    <p class="card-text" >Stock : {{this.stock}}</p>
+                    <form action="/api/carrito/2/productos" method="post">
+                        <input type="hidden" name="codigo" value={{this.codigo}}>
+                        <input type="hidden" name="timestamp" value={{this.timestamp}}>
+                        <input type="hidden" name="nombre" value={{this.nombre}}>
+                        <input type="hidden" name="descripcion" value={{this.descripcion}}>
+                        <input type="hidden" name="precio" value={{this.precio}}>
+                        <input type="hidden" name="stock" value={{this.stock}}>
+                        <input type="hidden" name="id" value={{this.id}}>
+                        <input type="hidden" name="foto" value={{this.foto}}>
+                        <button type="submit" class="btn btn-primary">Comprar</button>
+                    </form>
                 </div>
             </div>
         {{/each}}
@@ -20,7 +30,7 @@
     {{/if}}
     {{#if admin }}
     <h1>Usted es admin - Agregar Producto </h1>
-        <form action="/" method="post">
+        <form action="/api/productos/" method="post">
             <div class="container mt-5">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>

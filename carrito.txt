@@ -1,0 +1,20 @@
+[
+  {
+    "productoAct": {
+      "id": 2,
+      "timestamp": 1640476521128,
+      "productos": [
+        {
+          "nombre": "Escuadra",
+          "descripcion": "lorem",
+          "stock": "0",
+          "precio": "123.45",
+          "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+          "timestamp": "12/12/21",
+          "codigo": "12312312",
+          "id": "1"
+        }
+      ]
+    }
+  }
+]
