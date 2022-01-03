@@ -38,6 +38,16 @@ class Contenedor {
             return error; // error al leer o en el proceso de guardar
         }
     }
+    async productoId(idProducto) {
+        try{
+            const contenido = await this.read();
+            const item = contenido.find(producto => producto.id == idProducto);
+            return item
+        }catch(error){
+            return error
+        }
+        
+    }
     async getById(idProducto){
         try{
             const contenido = await this.read();

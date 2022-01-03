@@ -156,7 +156,7 @@ routerProductos.put('/:id', async (req, res) => {
 
 routerProductos.delete('/:id', async (req, res) => {
     const id= req.params.id
-    console.log(await productosContenedor.deleteProducto(id))
+    console.log(await productosContenedor.deleteById(id))
     console.log(await productosContenedor.getAll())
     res.render('home') 
 });
@@ -186,35 +186,64 @@ routerCarrito.post('/', async (req, res) => {
 });
 routerCarrito.post('/:id/productos', async (req, res) => {
     const idCarrito = req.params.id
-    let { nombre, descripcion, stock, precio, foto, timestamp, codigo, id} = req.body
-    let producto = {
-        nombre,
-        descripcion,
-        stock,
-        precio,
-        foto,
-        timestamp,
-        codigo,
-        id
-    }
     const carrito = await carritoContenedor.getById(idCarrito)
-    carrito[0].productos.push(producto)
-    console.log(carrito[0])
-    carritoContenedor.update(idCarrito, carrito[0])
-    res.json(idCarrito)
+    if(carrito){
+        let { nombre, descripcion, stock, precio, foto, timestamp, codigo, id} = req.body
+        let producto = await productosContenedor.productoId(id)
+        if (producto){
+            let producto = {
+                nombre,
+                descripcion,
+                stock,
+                precio,
+                foto,
+                timestamp,
+                codigo,
+                id
+            }
+            carrito[0].productos.push(producto)
+            carritoContenedor.update(idCarrito, carrito[0])
+            res.json(idCarrito)
+        }else{
+            mensaje = { error: 'No existe ese producto' };
+            res.status(404).json(mensaje);
+        }
+    }else{
+        mensaje = { error: 'No existe ese carrito' };
+        res.status(404).json(mensaje);
+    }
     //return id
 });
 routerCarrito.delete('/:id', async (req, res) => {
     const id = req.params.id
-    await carritoContenedor.deleteById(id)
+    const carrito = await carritoContenedor.productoId(id)
+    if(carrito){
+        await carritoContenedor.deleteById(id)
+    }else{
+        mensaje = { error: 'No existe ese carrito' };
+        res.status(404).json(mensaje);
+    }
 });
 routerCarrito.delete('/:id/productos/:id_prod', async (req, res) => {
     const idProducto = req.params.id_prod
     const id= req.params.id
     const carrito = await carritoContenedor.productoId(id) // encuentro el carrito
-    const productoEnCarrito = carrito.productos.find( producto => producto.id == idProducto)
-    productoEnCarrito
-    res.json(productoEnCarrito)
+    if(carrito){
+        const productoEnCarrito = carrito.productos.find( producto => producto.id == idProducto)
+        if(productoEnCarrito){
+            for( let i = 0 ; i < carrito.productos.length ; i++){
+                if(idProducto == carrito.productos[i].id){
+                    carrito.productos.splice(i, 1);
+                }
+            }
+        }else{
+            mensaje = { error: 'Ese producto no esta en el carrito o no existe' };
+            res.status(404).json(mensaje);
+        }
+    }else{
+        mensaje = { error: 'No existe ese carrito' };
+        res.status(404).json(mensaje);
+    }
 });
 
 app.use("/api/productos/", routerProductos)
