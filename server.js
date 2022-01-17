@@ -4,7 +4,7 @@ const { Server: HttpServer} = require('http');
 const { Server: IOServer } = require('socket.io');
 const { Router } = express
 
-const Contenedor = require("./main.js");
+const Contenedor = require("./contenedores/ContenedorArchivo.js");
 
 const app = express();
 const PORT = 3000;
