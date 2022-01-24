@@ -1,5 +1,5 @@
-import admin from "firebase-admin"
-import config from '../config.js'
+const admin = require('firebase-admin')
+const config = require('../config.js')
 
 admin.initializeApp({
     credential: admin.credential.cert(config.firebase)
@@ -13,7 +13,7 @@ class ContenedorFirebase {
         this.coleccion = db.collection(nombreColeccion)
     }
 
-    async listar(id) {
+    async getById(id) {
         try {
             const doc = await this.coleccion.doc(id).get();
             if (!doc.exists) {
@@ -27,7 +27,7 @@ class ContenedorFirebase {
         }
     }
 
-    async listarAll() {
+    async getAll() {
         try {
             const result = []
             const snapshot = await this.coleccion.get();
@@ -49,7 +49,7 @@ class ContenedorFirebase {
         }
     }
 
-    async actualizar(elemento) {
+    async update(elemento) {
         try {
             const actualizado = await this.coleccion.doc(elemento.id).set(elemento);
             return actualizado
@@ -58,7 +58,7 @@ class ContenedorFirebase {
         }
     }
 
-    async borrar(id) {
+    async deleteById(id) {
         try {
             const item = await this.coleccion.doc(id).delete();
             return item
@@ -67,7 +67,7 @@ class ContenedorFirebase {
         }
     }
 
-    async borrarAll() {
+    async deleteAll() {
         try {
             const docs = await this.listarAll()
             const ids = docs.map(d => d.id)
@@ -85,4 +85,4 @@ class ContenedorFirebase {
     }
 }
 
-export default ContenedorFirebase
+module.exports =  ContenedorFirebase

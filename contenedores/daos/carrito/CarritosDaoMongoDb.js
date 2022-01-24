@@ -1,4 +1,4 @@
-import ContenedorMongoDb from "../../contenedores/ContenedorMongoDb.js"
+const ContenedorMongoDb = require("../../ContenedorMongo")
 
 class CarritosDaoMongoDb extends ContenedorMongoDb {
 
@@ -13,4 +13,4 @@ class CarritosDaoMongoDb extends ContenedorMongoDb {
     }
 }
 
-export default CarritosDaoMongoDb
+module.exports = CarritosDaoMongoDb

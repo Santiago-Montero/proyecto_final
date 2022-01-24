@@ -101,10 +101,10 @@ class Contenedor {
             return error;
         }
     }
-    async update(id, productoAct){
+    async update(productoAct){
         try{
             const contenidoActualizado = this.file.map(producto => {
-                if (producto.id == id) {
+                if (producto.id == productoAct.id) {
                     const productoActualizado = {
                         productoAct
                     }

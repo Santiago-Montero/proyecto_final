@@ -3,7 +3,7 @@
     <div class="cards_productos">
         {{#each productosInicio}}
             <div class="card">
-                <img src={{this.foto}} class="card-img-top " alt={{this.nombre}} name="foto" >
+                <img src="{{this.foto.trim}}" alt="{{this.nombre}}" class="card-img-top"  name="foto" >
                 <div class="card-body">
                     <h5 class="card-title">{{this.nombre}}</h5>
                     <p class="card-text" >{{this.descripcion}}</p>

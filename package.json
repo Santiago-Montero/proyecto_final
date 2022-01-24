@@ -1,7 +1,6 @@
 {
   "name": "proyectofinal",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,8 +13,11 @@
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
     "express-router": "^0.0.1",
+    "firebase": "^9.6.3",
     "firebase-admin": "^10.0.1",
+    "mongoose": "^6.1.7",
     "nodemon": "^2.0.15",
     "socket.io": "^4.4.0"
-  }
+  },
+  "description": ""
 }

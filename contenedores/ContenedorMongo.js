@@ -1,7 +1,9 @@
-import mongoose from 'mongoose'
-import config from '../config.js'
+const mongoose = require('mongoose')
+const config = require('../config')
+// import mongoose from 'mongoose'
+// import config from '../config.js'
 
-await mongoose.connect(config.mongodb.url, config.mongodb.options)
+mongoose.connect(config.mongodb.url, config.mongodb.options)
 
 class ContenedorMongoDb {
 
@@ -9,7 +11,7 @@ class ContenedorMongoDb {
         this.coleccion = mongoose.model(nombreColeccion, esquema)
     }
 
-    async listar(id) {
+    async getById(id) {
         try {
             const docs = await this.coleccion.find({ '_id': id }, { __v: 0 })
             if (docs.length == 0) {
@@ -22,7 +24,7 @@ class ContenedorMongoDb {
         }
     }
 
-    async listarAll() {
+    async getAll() {
         try {
             let docs = await this.coleccion.find({})
             return docs
@@ -40,7 +42,7 @@ class ContenedorMongoDb {
         }
     }
 
-    async actualizar(elemento) {
+    async update(elemento) {
         try {
             
             const { n, nModified } = await this.coleccion.replaceOne({ '_id': elemento._id }, elemento)
@@ -54,7 +56,7 @@ class ContenedorMongoDb {
         }
     }
 
-    async borrar(id) {
+    async deleteById(id) {
         try {
             await this.coleccion.deleteOne({ '_id': id })
         } catch (err) {
@@ -62,7 +64,7 @@ class ContenedorMongoDb {
         }
     }
 
-    async borrarAll() {
+    async deleteAll() {
         try {
             await this.coleccion.deleteMany({})
         } catch (err) {
@@ -71,4 +73,4 @@ class ContenedorMongoDb {
     }
 }
 
-export default ContenedorMongoDb
+module.exports = ContenedorMongoDb
